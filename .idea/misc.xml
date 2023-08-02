@@ -3,9 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/drawable-v24/ic_add.xml" value="0.1" />
+        <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/drawable-v24/ic_back.xml" value="0.1" />
         <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/drawable-v24/ic_launcher_foregroundd.xml" value="0.1" />
+        <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/drawable/ic_add.xml" value="0.1" />
+        <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/drawable/ic_add_xml.xml" value="0.1" />
+        <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/drawable/ic_back.xml" value="0.1" />
+        <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1" />
         <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/layout/activity_notification.xml" value="0.14739583333333334" />
+        <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/layout/activity_previous.xml" value="0.1" />
+        <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/layout/activity_previous_items.xml" value="0.1" />
+        <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/layout/toolbar.xml" value="0.1" />
+        <entry key="..\:/Users/kimhm/AndroidStudioProjects/TodoTodo/app/src/main/res/menu/menu_toolbar.xml" value="0.1" />
       </map>
     </option>
   </component>

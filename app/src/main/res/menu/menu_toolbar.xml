@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/notification_item"
+        android:enabled="true"
+        android:title="@string/notification"
+        android:icon="@drawable/ic_notification"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/previous_item"
+        android:enabled="true"
+        android:title="@string/previous_items"
+        android:icon="@drawable/ic_previous_items"
+        app:showAsAction="ifRoom"/>
+</menu>
