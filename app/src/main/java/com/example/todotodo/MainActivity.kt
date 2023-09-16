@@ -3,13 +3,18 @@ package com.example.todotodo
 import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.content.ContextCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.example.todotodo.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity() {
-    override fun onInit() {
+
+    private lateinit var binding: ActivityMainBinding
+
+    override fun onInit(): ConstraintLayout {
         installSplashScreen()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu) : Boolean {

@@ -5,19 +5,20 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 
 abstract class BaseActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        onInit()
+        setContentView(onInit())
 
         toolbar = findViewById(R.id.toolbar)
         composeToolbar()
     }
 
-    abstract fun onInit()
+    abstract fun onInit() : ConstraintLayout
 
     open fun composeToolbar() {
         setSupportActionBar(toolbar)

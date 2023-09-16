@@ -1,8 +1,15 @@
 package com.example.todotodo
 
+import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.todotodo.databinding.ActivityPreviousBinding
+
 class PreviousActivity : BaseActivity() {
-    override fun onInit() {
-        setContentView(R.layout.activity_previous)
+
+    private lateinit var binding: ActivityPreviousBinding
+
+    override fun onInit() : ConstraintLayout {
+        binding = ActivityPreviousBinding.inflate(layoutInflater)
+        return binding.root
     }
 
     override fun composeToolbar() {
