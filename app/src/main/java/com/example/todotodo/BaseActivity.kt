@@ -5,8 +5,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 
 abstract class BaseActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
@@ -25,10 +23,8 @@ abstract class BaseActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
     }
 
-    fun setHomeButton(drawableResId: Int = R.drawable.ic_back) {
+    fun setHomeButton() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        // supportActionBar?.setHomeAsUpIndicator(drawableResId)
-        // TODO Vector Asset 불러오지 못하는 현상 해결
     }
 
     fun setMenuTitle(titleResId: Int) {
@@ -37,6 +33,7 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu) : Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
+        menu.findItem(R.id.add_item).isVisible = false
         menu.findItem(R.id.notification_item).isVisible = false
         menu.findItem(R.id.previous_item).isVisible = false
         return true

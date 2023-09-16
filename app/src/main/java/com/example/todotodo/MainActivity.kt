@@ -12,11 +12,6 @@ class MainActivity : BaseActivity() {
         setContentView(R.layout.activity_main)
     }
 
-    override fun composeToolbar() {
-        super.composeToolbar()
-        setHomeButton(R.drawable.ic_add)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu) : Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
         return true
@@ -24,8 +19,9 @@ class MainActivity : BaseActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            android.R.id.home -> {
+            R.id.add_item -> {
                 // TODO 항목 추가하는 다이얼로그
+                // TODO add 아이콘을 home 버튼으로 옮기기(home 버튼 벡터 불러오기 오류)
                 true
             }
             R.id.notification_item -> {

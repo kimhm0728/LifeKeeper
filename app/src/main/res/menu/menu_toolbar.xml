@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/add_item"
+        android:enabled="true"
+        android:title="@string/add"
+        android:icon="@drawable/ic_add"
+        app:showAsAction="ifRoom"/>
+
+    <item
         android:id="@+id/notification_item"
         android:enabled="true"
         android:title="@string/notification"
