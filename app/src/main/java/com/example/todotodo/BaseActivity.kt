@@ -13,13 +13,13 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(onInit())
+        onInit()
 
         toolbar = findViewById(R.id.toolbar)
         composeUI()
     }
 
-    abstract fun onInit() : ConstraintLayout
+    abstract fun onInit()
 
     abstract fun composeUI()
 

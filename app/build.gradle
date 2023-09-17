@@ -35,8 +35,8 @@ android {
         jvmTarget = '1.8'
     }
 
-    // view binding
-    viewBinding {
+    // data binding
+    dataBinding {
         enabled = true
     }
 }
@@ -56,4 +56,7 @@ dependencies {
     // Local DB Room
     implementation 'androidx.room:room-ktx:2.3.0'
     kapt 'androidx.room:room-compiler:2.3.0'
+
+    // viewmodel
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
 }

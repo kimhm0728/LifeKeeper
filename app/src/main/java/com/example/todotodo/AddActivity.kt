@@ -11,6 +11,7 @@ import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnPreDraw
+import androidx.databinding.DataBindingUtil
 import com.example.todotodo.database.Todo
 import com.example.todotodo.database.TodoDatabase
 import com.example.todotodo.databinding.ActivityAddBinding
@@ -25,6 +26,7 @@ import java.util.*
 class AddActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddBinding
+
     private var currentDate: Date? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,8 +34,7 @@ class AddActivity : AppCompatActivity() {
 
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
 
-        binding = ActivityAddBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add)
 
         composeUI()
     }

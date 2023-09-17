@@ -1,9 +1,7 @@
 package com.example.todotodo.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
+import androidx.lifecycle.LiveData
+import androidx.room.*
 
 @Dao
 interface TodoDao {
@@ -15,4 +13,7 @@ interface TodoDao {
 
     @Delete
     fun delete(todo: Todo)
+
+    @Query("SELECT * FROM Todo")
+    fun selectAll(): LiveData<List<Todo>>
 }
