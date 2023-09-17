@@ -12,7 +12,7 @@ class NotificationActivity : BaseActivity() {
         return binding.root
     }
 
-    override fun composeToolbar() {
+    override fun composeUI() {
         super.composeToolbar()
         setMenuTitle(R.string.notification)
         setHomeButton()

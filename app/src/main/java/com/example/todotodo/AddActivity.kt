@@ -1,25 +1,31 @@
 package com.example.todotodo
 
-import android.annotation.SuppressLint
+import android.graphics.Rect
+import com.example.todotodo.library.dateIntToStr
+import com.example.todotodo.library.dateStrToDate
 import android.os.Bundle
 import android.view.MotionEvent
+import android.view.TouchDelegate
+import android.view.View
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnPreDraw
 import com.example.todotodo.database.Todo
 import com.example.todotodo.database.TodoDatabase
 import com.example.todotodo.databinding.ActivityAddBinding
+import com.example.todotodo.library.convertDPtoPX
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.*
 
 class AddActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddBinding
+    private var currentDate: Date? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,17 +39,20 @@ class AddActivity : AppCompatActivity() {
     }
 
     private fun composeUI() {
-        val today = SimpleDateFormat("yyyy / MM / dd").format(Date())
+        currentDate = Date()
+        val today = SimpleDateFormat("yyyy / MM / dd").format(currentDate)
         binding.dateText.text = today
 
         binding.calendar.setOnDateChangeListener { _, year, month, day ->
-            val date = getDateStr(year, month + 1, day)
+            val date = dateIntToStr(year, month + 1, day)
 
             if (date < today) {
                 showToast("이전 날짜는 선택하실 수 없습니다!")
+                binding.calendar.date = (currentDate ?: Date()).time
                 return@setOnDateChangeListener
             }
 
+            currentDate = dateStrToDate(date)
             binding.dateText.text = date
         }
 
@@ -61,18 +70,21 @@ class AddActivity : AppCompatActivity() {
                 db?.todoDao()?.insert(newTodo)
             }
         }
-    }
 
-    private fun getDateStr(year: Int, month: Int, day: Int): String {
-        var date = "$year / "
+        binding.exitBtn.run {
+            setOnClickListener { finish() }
 
-        if (month < 10) date += "0"
-        date += "$month / "
+            val size = 12.convertDPtoPX(context)
+            val parent = parent as View
+            parent.doOnPreDraw { parent ->
+                val updateRect = Rect().also { r ->
+                    this.getHitRect(r)
+                    r.inset(size, size)
+                }
 
-        if (day < 10) date += "0"
-        date += day
-
-        return date
+                parent.touchDelegate = TouchDelegate(updateRect, this)
+            }
+        }
     }
 
     override fun onBackPressed() {

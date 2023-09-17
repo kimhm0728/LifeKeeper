@@ -16,12 +16,14 @@ abstract class BaseActivity : AppCompatActivity() {
         setContentView(onInit())
 
         toolbar = findViewById(R.id.toolbar)
-        composeToolbar()
+        composeUI()
     }
 
     abstract fun onInit() : ConstraintLayout
 
-    open fun composeToolbar() {
+    abstract fun composeUI()
+
+    fun composeToolbar() {
         setSupportActionBar(toolbar)
     }
 
@@ -35,7 +37,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu) : Boolean {
         menuInflater.inflate(R.menu.menu_toolbar, menu)
-        menu.findItem(R.id.add_item).isVisible = false
         menu.findItem(R.id.notification_item).isVisible = false
         menu.findItem(R.id.previous_item).isVisible = false
         return true
