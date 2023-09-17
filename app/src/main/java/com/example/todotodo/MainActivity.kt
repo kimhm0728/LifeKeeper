@@ -25,6 +25,7 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.add_item -> {
+                startActivity(Intent(this, AddActivity::class.java))
                 // TODO 항목 추가하는 다이얼로그
                 // TODO add 아이콘을 home 버튼으로 옮기기(home 버튼 벡터 불러오기 오류)
                 true

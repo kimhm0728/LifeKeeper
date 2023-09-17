@@ -8,7 +8,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 
 abstract class BaseActivity : AppCompatActivity() {
-    lateinit var toolbar: Toolbar
+
+    private lateinit var toolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -4,4 +4,9 @@
     <string name="add">항목 추가</string>
     <string name="notification">알림 설정</string>
     <string name="previous_items">이전 항목</string>
+    <string name="date">날짜</string>
+    <string name="todo">할일</string>
+    <string name="add_todo">할일 추가하기</string>
+    <string name="add_btn">추가</string>
+    <string name="input">할일 입력</string>
 </resources>
