@@ -23,6 +23,7 @@ class AddDialog(private val _context: Context, private val customDialogInterface
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        setContentView(R.layout.dialog_add)
         binding = DialogAddBinding.inflate(layoutInflater)
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
