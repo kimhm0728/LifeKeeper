@@ -10,6 +10,7 @@ abstract class TodoDatabase : RoomDatabase() {
     abstract fun todoDao(): TodoDao
 
     companion object {
+        @Volatile
         private var instance: TodoDatabase? = null
 
         @Synchronized

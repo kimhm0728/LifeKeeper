@@ -8,7 +8,7 @@ class TodoRepository(private val todoDao: TodoDao?) {
 
     val allTodoList : LiveData<List<Todo>>? = todoDao?.selectAll()
 
-    fun insert(todo: Todo) {
+    suspend fun insert(todo: Todo) {
         todoDao?.insert(todo)
     }
 }

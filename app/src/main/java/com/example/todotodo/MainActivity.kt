@@ -5,15 +5,16 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todotodo.database.Todo
 import com.example.todotodo.database.TodoDatabase
 import com.example.todotodo.mvvm.TodoViewModel
 import com.example.todotodo.databinding.ActivityMainBinding
+import com.example.todotodo.listener.CustomDialogInterface
 import com.example.todotodo.recyclerview.TodoRecyclerViewAdapter
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), CustomDialogInterface {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: TodoDatabase
@@ -23,7 +24,7 @@ class MainActivity : BaseActivity() {
         installSplashScreen()
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        db = (TodoDatabase.getInstance(applicationContext) ?: null) as TodoDatabase
+        db = TodoDatabase.getInstance(applicationContext) as TodoDatabase
 
         todoViewModel = ViewModelProvider(this, TodoViewModel.Factory(application))[TodoViewModel::class.java]
     }
@@ -32,18 +33,22 @@ class MainActivity : BaseActivity() {
         super.composeToolbar()
 
         binding.addBtn.setOnClickListener {
-            startActivity(Intent(this, AddActivity::class.java))
+            AddDialog(this, this).show()
         }
 
-        // 아이템을 가로로 하나씩 보여줌
         binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-        // 어댑터 연결
-        val adapter = TodoRecyclerViewAdapter()
-        binding.recyclerView.adapter = adapter
 
-        todoViewModel.allTodoList?.observe(this, Observer {
+        val adapter = TodoRecyclerViewAdapter()
+
+        binding.recyclerView.adapter = adapter
+        todoViewModel.allTodoList?.observe(this) {
             adapter.setData(it)
-        })
+        }
+    }
+
+    override fun onAddButtonClicked(date: String, contents: String, posted: String) {
+        val todo = Todo(date, contents, posted)
+        todoViewModel.insert(todo)
     }
 
     override fun onCreateOptionsMenu(menu: Menu) : Boolean {

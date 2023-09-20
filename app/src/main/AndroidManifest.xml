@@ -37,13 +37,6 @@
             android:screenOrientation="portrait">
         </activity>
 
-        <activity
-            android:name=".AddActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog"
-            android:screenOrientation="portrait">
-        </activity>
-
     </application>
 
 </manifest>
