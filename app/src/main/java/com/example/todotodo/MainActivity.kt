@@ -1,6 +1,7 @@
 package com.example.todotodo
 
 import android.content.Intent
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -11,7 +12,9 @@ import com.example.todotodo.database.Todo
 import com.example.todotodo.database.TodoDatabase
 import com.example.todotodo.mvvm.TodoViewModel
 import com.example.todotodo.databinding.ActivityMainBinding
+import com.example.todotodo.library.showToast
 import com.example.todotodo.listener.CustomDialogInterface
+import com.example.todotodo.listener.setOnSingleClickListener
 import com.example.todotodo.recyclerview.TodoRecyclerViewAdapter
 
 class MainActivity : BaseActivity(), CustomDialogInterface {
@@ -32,8 +35,8 @@ class MainActivity : BaseActivity(), CustomDialogInterface {
     override fun composeUI() {
         super.composeToolbar()
 
-        binding.addBtn.setOnClickListener {
-            AddDialog(this, this).show()
+        binding.addBtn.setOnSingleClickListener {
+            AddDialog(this, this).show(supportFragmentManager, "dialog")
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
@@ -68,5 +71,20 @@ class MainActivity : BaseActivity(), CustomDialogInterface {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onBackPressed() {
+        Log.e("MainActivity", "test")
+
+        if (System.currentTimeMillis() - backPressedTime >= 2000) {
+            backPressedTime = System.currentTimeMillis()
+            showToast(this, "뒤로 버튼을 한번 더 누르면 앱을 종료합니다.")
+        } else if (System.currentTimeMillis() - backPressedTime < 2000) {
+            finish()
+        }
+    }
+
+    companion object {
+        private var backPressedTime: Long = 0
     }
 }

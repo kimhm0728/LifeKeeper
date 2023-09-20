@@ -2,9 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:background="@color/white">
 
         <LinearLayout
             android:id="@+id/title_layout"
@@ -55,12 +61,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/date" />
+                android:text="@string/date"
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/date_text"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:textSize="20sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -74,13 +83,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="@string/todo" />
+                android:text="@string/todo"
+                android:textSize="20sp"/>
 
             <EditText
                 android:id="@+id/edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/input"
+                android:maxLength="50"
+                android:layout_weight="1"
                 android:singleLine="true" />
         </LinearLayout>
 
@@ -91,29 +103,26 @@
             android:background="#66bdbdbd"
             app:layout_constraintTop_toBottomOf="@+id/todo_layout" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.1"
-            app:layout_constraintTop_toBottomOf="@+id/line">
+            app:layout_constraintTop_toBottomOf="@+id/line"
+            android:orientation="horizontal">
 
             <Space
                 android:id="@+id/space"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintWidth_percent="0.7" />
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/add_btn"
-                android:layout_width="0dp"
+                android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="@string/add_btn"
-                app:layout_constraintLeft_toRightOf="@+id/space"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintWidth_percent="0.3" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:text="@string/add_btn"/>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

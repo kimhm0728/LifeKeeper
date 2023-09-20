@@ -1,33 +1,35 @@
 package com.example.todotodo
 
-import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import com.example.todotodo.library.dateIntToStr
 import com.example.todotodo.library.dateStrToDate
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import com.example.todotodo.library.showToast
 import com.example.todotodo.databinding.DialogAddBinding
 import com.example.todotodo.listener.CustomDialogInterface
+import com.example.todotodo.listener.setOnSingleClickListener
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.util.*
 
-class AddDialog(private val _context: Context, private val customDialogInterface: CustomDialogInterface) : Dialog(_context) {
+class AddDialog(private val _context: Context, private val customDialogInterface: CustomDialogInterface) : DialogFragment() {
 
     private lateinit var binding: DialogAddBinding
 
     private var currentDate: Date = Date()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
 
-        setContentView(R.layout.dialog_add)
-        binding = DialogAddBinding.inflate(layoutInflater)
-        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
+        binding = DialogAddBinding.inflate(inflater, container, false)
         composeUI()
+
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        return binding.root
     }
 
     private fun composeUI() {
@@ -47,21 +49,21 @@ class AddDialog(private val _context: Context, private val customDialogInterface
             binding.dateText.text = date
         }
 
-        binding.addBtn.setOnClickListener {
+        binding.addBtn.setOnSingleClickListener {
             val contents = binding.editText.text.toString()
             if (contents == "") {
                 showToast(_context, "할일의 내용을 입력해주세요.")
-                return@setOnClickListener
+                return@setOnSingleClickListener
             }
 
-            customDialogInterface.onAddButtonClicked(currentDate.toString(), contents, LocalDateTime.now().toString())
+            customDialogInterface.onAddButtonClicked(
+                currentDate.toString(),
+                contents,
+                LocalDateTime.now().toString()
+            )
             dismiss()
         }
 
         binding.exitBtn.setOnClickListener { dismiss() }
-    }
-
-    override fun onBackPressed() {
-        //super.onBackPressed
     }
 }

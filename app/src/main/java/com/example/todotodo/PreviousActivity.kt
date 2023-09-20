@@ -15,7 +15,7 @@ class PreviousActivity : BaseActivity() {
 
     override fun composeUI() {
         super.composeToolbar()
-        setMenuTitle(R.string.notification)
+        setMenuTitle(R.string.previous_items)
         setHomeButton()
     }
 }
