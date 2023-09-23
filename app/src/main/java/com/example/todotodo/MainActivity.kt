@@ -1,9 +1,10 @@
 package com.example.todotodo
 
+import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
@@ -15,10 +16,11 @@ import com.example.todotodo.databinding.ActivityMainBinding
 import com.example.todotodo.library.showToast
 import com.example.todotodo.listener.CustomDialogInterface
 import com.example.todotodo.listener.setOnSingleClickListener
-import com.example.todotodo.recyclerview.TodoRecyclerViewAdapter
+import com.example.todotodo.adapter.TodoRecyclerViewAdapter
 
 class MainActivity : BaseActivity(), CustomDialogInterface {
 
+    private lateinit var context: Context
     private lateinit var binding: ActivityMainBinding
     private lateinit var db: TodoDatabase
     private lateinit var todoViewModel: TodoViewModel
@@ -26,10 +28,14 @@ class MainActivity : BaseActivity(), CustomDialogInterface {
     override fun onInit() {
         installSplashScreen()
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        db = TodoDatabase.getInstance(applicationContext) as TodoDatabase
+        context = this
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        db = TodoDatabase.getInstance(applicationContext) as TodoDatabase
         todoViewModel = ViewModelProvider(this, TodoViewModel.Factory(application))[TodoViewModel::class.java]
+
+        addOnBackPressedCallback()
     }
 
     override fun composeUI() {
@@ -73,18 +79,23 @@ class MainActivity : BaseActivity(), CustomDialogInterface {
         }
     }
 
-    override fun onBackPressed() {
-        Log.e("MainActivity", "test")
-
-        if (System.currentTimeMillis() - backPressedTime >= 2000) {
-            backPressedTime = System.currentTimeMillis()
-            showToast(this, "뒤로 버튼을 한번 더 누르면 앱을 종료합니다.")
-        } else if (System.currentTimeMillis() - backPressedTime < 2000) {
-            finish()
+    private fun addOnBackPressedCallback() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (System.currentTimeMillis() - backPressedTime >= 2000) {
+                    backPressedTime = System.currentTimeMillis()
+                    showToast(context, "뒤로 버튼을 한번 더 누르면 앱을 종료합니다.")
+                } else if (System.currentTimeMillis() - backPressedTime < 2000) {
+                    finish()
+                }
+            }
         }
+
+        this.onBackPressedDispatcher.addCallback(this, callback)
     }
 
     companion object {
+        private val TAG = MainActivity.toString()
         private var backPressedTime: Long = 0
     }
 }
