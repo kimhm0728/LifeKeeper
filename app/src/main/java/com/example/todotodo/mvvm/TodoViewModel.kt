@@ -20,7 +20,7 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
         val todoDao = TodoDatabase.getInstance(application)?.todoDao()
 
         repository = TodoRepository(todoDao)
-        allTodoList = repository?.allTodoList
+        allTodoList = repository.allTodoList
     }
 
     fun insert(todo: Todo) {

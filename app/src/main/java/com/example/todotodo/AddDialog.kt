@@ -26,9 +26,10 @@ class AddDialog(private val _context: Context, private val customDialogInterface
         super.onCreateView(inflater, container, savedInstanceState)
 
         binding = DialogAddBinding.inflate(inflater, container, false)
+        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        isCancelable = false
         composeUI()
 
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         return binding.root
     }
 
@@ -41,7 +42,7 @@ class AddDialog(private val _context: Context, private val customDialogInterface
 
             if (date < today) {
                 showToast(_context, "이전 날짜는 선택하실 수 없습니다!")
-                binding.calendar.date = (currentDate ?: Date()).time
+                binding.calendar.date = currentDate.time
                 return@setOnDateChangeListener
             }
 
@@ -61,6 +62,7 @@ class AddDialog(private val _context: Context, private val customDialogInterface
                 contents,
                 LocalDateTime.now().toString()
             )
+
             dismiss()
         }
 
