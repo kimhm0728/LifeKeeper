@@ -42,7 +42,7 @@ class MainActivity : BaseActivity(), CustomDialogInterface {
         super.composeToolbar()
 
         binding.addBtn.setOnSingleClickListener {
-            AddDialog(this, this).show(supportFragmentManager, "dialog")
+            AddDialog().show(supportFragmentManager, "dialog")
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)

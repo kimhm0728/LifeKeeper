@@ -11,8 +11,7 @@
         android:layout_height="match_parent">
 
         <include
-            layout="@layout/toolbar"
-            android:id="@+id/toolbar"/>
+            layout="@layout/toolbar"/>
 
         <!--        <ScrollView-->
 <!--            android:id="@+id/scroll_view"-->

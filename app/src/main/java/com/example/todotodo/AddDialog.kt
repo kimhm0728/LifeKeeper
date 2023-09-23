@@ -14,13 +14,18 @@ import com.example.todotodo.listener.CustomDialogInterface
 import com.example.todotodo.listener.setOnSingleClickListener
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
-import java.util.*
+import java.util.Date
 
-class AddDialog(private val _context: Context, private val customDialogInterface: CustomDialogInterface) : DialogFragment() {
+class AddDialog : DialogFragment() {
 
     private lateinit var binding: DialogAddBinding
-
+    private lateinit var mContext: Context
     private var currentDate: Date = Date()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mContext = context
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -41,7 +46,7 @@ class AddDialog(private val _context: Context, private val customDialogInterface
             val date = dateIntToStr(year, month + 1, day)
 
             if (date < today) {
-                showToast(_context, "이전 날짜는 선택하실 수 없습니다!")
+                showToast(mContext, "이전 날짜는 선택하실 수 없습니다!")
                 binding.calendar.date = currentDate.time
                 return@setOnDateChangeListener
             }
@@ -53,11 +58,11 @@ class AddDialog(private val _context: Context, private val customDialogInterface
         binding.addBtn.setOnSingleClickListener {
             val contents = binding.editText.text.toString()
             if (contents == "") {
-                showToast(_context, "할일의 내용을 입력해주세요.")
+                showToast(mContext, "할일의 내용을 입력해주세요.")
                 return@setOnSingleClickListener
             }
 
-            customDialogInterface.onAddButtonClicked(
+            (activity as CustomDialogInterface).onAddButtonClicked(
                 currentDate.toString(),
                 contents,
                 LocalDateTime.now().toString()

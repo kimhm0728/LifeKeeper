@@ -62,14 +62,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/date"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/date_text"
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:textSize="20sp"/>
+                android:layout_weight="1"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -84,15 +84,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="@string/todo"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/edit_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:hint="@string/input"
                 android:maxLength="50"
-                android:layout_weight="1"
                 android:singleLine="true" />
         </LinearLayout>
 
@@ -106,22 +106,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHeight_percent="0.1"
-            app:layout_constraintTop_toBottomOf="@+id/line"
-            android:orientation="horizontal">
+            app:layout_constraintTop_toBottomOf="@+id/line">
 
             <Space
                 android:id="@+id/space"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/add_btn"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:text="@string/add_btn"/>
+                android:text="@string/add_btn" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
