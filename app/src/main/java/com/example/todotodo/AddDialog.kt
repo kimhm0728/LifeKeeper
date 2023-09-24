@@ -73,4 +73,8 @@ class AddDialog : DialogFragment() {
 
         binding.exitBtn.setOnClickListener { dismiss() }
     }
+
+    companion object {
+        private val TAG = AddDialog::class.simpleName
+    }
 }

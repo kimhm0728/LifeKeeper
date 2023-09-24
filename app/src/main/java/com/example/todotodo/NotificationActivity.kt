@@ -1,7 +1,5 @@
 package com.example.todotodo
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.util.Log
 import android.widget.Button
 import android.widget.TimePicker
@@ -16,17 +14,16 @@ class NotificationActivity : BaseActivity() {
     private lateinit var binding: ActivityNotificationBinding
     private lateinit var pref: PreferenceUtil
 
-    var infoText: String? = null
     private var switch: Boolean? = null
     private var hour: Int? = null
     private var minute: Int? = null
 
+    private var switchCompat: SwitchCompat? = null
     private var timePicker: TimePicker? = null
+    private var applyBtn: Button? = null
 
     override fun onInit() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_notification)
-        binding.activity = this
-
         pref = TodoTodoApplication.prefs
     }
 
@@ -35,23 +32,32 @@ class NotificationActivity : BaseActivity() {
         setMenuTitle(R.string.notification)
         setHomeButton()
 
-        infoText = resources.getString(R.string.notification_info)
+        switchCompat = binding.switchCompat
         timePicker = binding.timePicker
+        applyBtn = binding.applyBtn
 
-        binding.switchCompat.isChecked = pref.getData(SWITCH_KEY, DEFAULT_KEY) != DEFAULT_KEY
-        timePicker?.hour.run {
+        switchCompat?.isChecked = run {
+            val c = pref.getData(SWITCH_KEY, DEFAULT_KEY)
+            Log.d(TAG, "Switch isChecked $c")
+            if (c == DEFAULT_KEY) false else c.toBoolean()
+        }
+
+        timePicker?.isEnabled = switchCompat?.isChecked == true
+
+        timePicker?.hour = run {
             val h = pref.getData(HOUR_KEY, DEFAULT_KEY)
+            Log.d(TAG, "TimePicker hour $h")
             if (h == DEFAULT_KEY) 12 else h.toInt()
         }
-        timePicker?.minute.run {
+
+        timePicker?.minute = run {
             val m = pref.getData(MINUTE_KEY, DEFAULT_KEY)
-            if (m == DEFAULT_KEY) 12 else m.toInt()
+            Log.d(TAG, "TimePicker minute $m")
+            if (m == DEFAULT_KEY) 30 else m.toInt()
         }
 
-        timePicker?.isEnabled = false
-
-        binding.switchCompat.setOnCheckedChangeListener { _, isCheck ->
-            Log.d(TAG, "switch checked change : $isCheck")
+        switchCompat?.setOnCheckedChangeListener { _, isCheck ->
+            Log.d(TAG, "Switch checked change : $isCheck")
 
             switch = isCheck
 
@@ -66,7 +72,9 @@ class NotificationActivity : BaseActivity() {
             setApplyBtn()
         }
 
-        binding.applyBtn.setOnClickListener {
+        applyBtn?.setOnClickListener {
+            Log.d(TAG, "Apply Button clicked")
+
             pref.setData(SWITCH_KEY, switch.toString())
             pref.setData(HOUR_KEY, hour.toString())
             pref.setData(MINUTE_KEY, minute.toString())
@@ -75,7 +83,7 @@ class NotificationActivity : BaseActivity() {
     }
 
     private fun setApplyBtn() {
-        binding.applyBtn.isEnabled = isChangedSetting()
+        applyBtn?.isEnabled = isChangedSetting()
     }
 
     private fun isChangedSetting(): Boolean {
@@ -90,7 +98,7 @@ class NotificationActivity : BaseActivity() {
     }
 
     companion object {
-        private val TAG = NotificationActivity.toString()
+        private val TAG = NotificationActivity::class.simpleName
 
         private const val DEFAULT_KEY = "default"
         private const val SWITCH_KEY = "switch"

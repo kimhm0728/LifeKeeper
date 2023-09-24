@@ -14,37 +14,36 @@
         android:layout_height="wrap_content"
         android:padding="20dp">
 
-        <TextView
-            android:id="@+id/date_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{todo.date}"
-            android:textSize="40sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <CheckBox
+            android:id="@+id/check_box"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
 
-        <TextView
-            android:id="@+id/contents_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:text="@{todo.contents}"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/date_text"
-            app:layout_constraintTop_toTopOf="parent" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toRightOf="@+id/check_box"
+            app:layout_constraintRight_toRightOf="parent">
 
-        <TextView
-            android:id="@+id/posted_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@{todo.posted}"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/contents_text"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/contents_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{todo.contents}"
+                android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{todo.date}"
+                android:textSize="24sp" />
+
+
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -51,4 +51,8 @@ abstract class BaseActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    companion object {
+        private val TAG = BaseActivity::class.simpleName
+    }
 }

@@ -4,9 +4,6 @@
 
     <data>
 
-        <variable
-            name="activity"
-            type="com.example.todotodo.NotificationActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,7 +26,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@{activity.infoText}" />
+                android:text="@string/notification_info" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_compat"

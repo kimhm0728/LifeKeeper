@@ -18,4 +18,8 @@ class PreviousActivity : BaseActivity() {
         setMenuTitle(R.string.previous_items)
         setHomeButton()
     }
+
+    companion object {
+        private val TAG = PreviousActivity::class.simpleName
+    }
 }

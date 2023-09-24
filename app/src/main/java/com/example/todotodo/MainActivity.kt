@@ -95,7 +95,7 @@ class MainActivity : BaseActivity(), CustomDialogInterface {
     }
 
     companion object {
-        private val TAG = MainActivity.toString()
+        private val TAG = MainActivity::class.simpleName
         private var backPressedTime: Long = 0
     }
 }
