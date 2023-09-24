@@ -1,5 +1,6 @@
-package com.example.todotodo.adapter
+package com.example.todotodo.recyclerview
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +9,7 @@ import com.example.todotodo.databinding.RecyclerViewItemBinding
 
 class TodoRecyclerViewAdapter : RecyclerView.Adapter<TodoRecyclerViewAdapter.ViewHolder>() {
 
+    private lateinit var binding: RecyclerViewItemBinding
     private var todoList = emptyList<Todo>()
 
     class ViewHolder(val binding: RecyclerViewItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -17,13 +19,17 @@ class TodoRecyclerViewAdapter : RecyclerView.Adapter<TodoRecyclerViewAdapter.Vie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = RecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = RecyclerViewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = todoList[position]
         holder.bind(currentItem)
+
+        binding.root.setOnClickListener {
+            Log.e(TAG, "$currentItem.id")
+        }
     }
 
     override fun getItemCount(): Int {
@@ -33,5 +39,9 @@ class TodoRecyclerViewAdapter : RecyclerView.Adapter<TodoRecyclerViewAdapter.Vie
     fun setData(todo : List<Todo>){
         todoList = todo
         notifyDataSetChanged()
+    }
+
+    companion object {
+        private val TAG = TodoRecyclerViewAdapter::class.simpleName
     }
 }

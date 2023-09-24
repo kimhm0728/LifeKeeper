@@ -1,26 +1,22 @@
-package com.example.todotodo
+package com.example.todotodo.dialog
 
 import android.content.Context
-import com.example.todotodo.library.dateIntToStr
-import com.example.todotodo.library.dateStrToDate
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.example.todotodo.library.showToast
+import com.example.todotodo.R
 import com.example.todotodo.databinding.DialogAddBinding
-import com.example.todotodo.listener.CustomDialogInterface
-import com.example.todotodo.listener.setOnSingleClickListener
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
+import com.example.todotodo.library.*
 import java.util.Date
 
 class AddDialog : DialogFragment() {
 
     private lateinit var binding: DialogAddBinding
     private lateinit var mContext: Context
+
     private var currentDate: Date = Date()
 
     override fun onAttach(context: Context) {
@@ -40,7 +36,7 @@ class AddDialog : DialogFragment() {
     }
 
     private fun composeUI() {
-        val today = SimpleDateFormat("yyyy / MM / dd").format(currentDate)
+        val today = currentDate.toDateString()
         binding.dateText.text = today
 
         binding.calendar.setOnDateChangeListener { _, year, month, day ->
@@ -49,12 +45,12 @@ class AddDialog : DialogFragment() {
             val date = dateIntToStr(year, month + 1, day)
 
             if (date < today) {
-                showToast(mContext, resources.getString(R.string.previous_items))
+                showToast(mContext, resources.getString(R.string.previous_date))
                 binding.calendar.date = currentDate.time
                 return@setOnDateChangeListener
             }
 
-            currentDate = dateStrToDate(date)
+            currentDate = date.toDate()
             binding.dateText.text = date
         }
 
@@ -66,9 +62,9 @@ class AddDialog : DialogFragment() {
             }
 
             (activity as CustomDialogInterface).onAddButtonClicked(
-                currentDate.toString(),
+                binding.dateText.text.toString(),
                 contents,
-                LocalDateTime.now().toString()
+                Date().toPostedString()
             )
 
             dismiss()

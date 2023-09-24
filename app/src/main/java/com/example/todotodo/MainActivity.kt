@@ -15,9 +15,10 @@ import com.example.todotodo.database.TodoDatabase
 import com.example.todotodo.mvvm.TodoViewModel
 import com.example.todotodo.databinding.ActivityMainBinding
 import com.example.todotodo.library.showToast
-import com.example.todotodo.listener.CustomDialogInterface
-import com.example.todotodo.listener.setOnSingleClickListener
-import com.example.todotodo.adapter.TodoRecyclerViewAdapter
+import com.example.todotodo.dialog.CustomDialogInterface
+import com.example.todotodo.library.setOnSingleClickListener
+import com.example.todotodo.recyclerview.TodoRecyclerViewAdapter
+import com.example.todotodo.dialog.AddDialog
 
 class MainActivity : BaseActivity(), CustomDialogInterface {
 
@@ -58,7 +59,7 @@ class MainActivity : BaseActivity(), CustomDialogInterface {
     }
 
     override fun onAddButtonClicked(date: String, contents: String, posted: String) {
-        Log.d(TAG, "onAddButtonClicked()")
+        Log.e(TAG, "onAddButtonClicked() $date $contents $posted")
 
         val todo = Todo(date, contents, posted)
         todoViewModel.insert(todo)

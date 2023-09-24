@@ -1,12 +1,8 @@
-package com.example.todotodo.listener
+package com.example.todotodo.library
 
 import android.view.View
 
 class OnSingleClickListener(private val onSingleClick: (View) -> Unit) : View.OnClickListener {
-
-    companion object {
-        const val CLICK_INTERVAL = 500
-    }
 
     private var lastClickedTime: Long = 0L
 
@@ -20,11 +16,16 @@ class OnSingleClickListener(private val onSingleClick: (View) -> Unit) : View.On
         }
         lastClickedTime = System.currentTimeMillis()
     }
+
+    companion object {
+        const val CLICK_INTERVAL = 500
+    }
 }
 
 fun View.setOnSingleClickListener(block: (view: View) -> Unit) {
     val popupClickListener = OnSingleClickListener {
         block(it)
     }
+
     setOnClickListener(popupClickListener)
 }
