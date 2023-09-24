@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.todotodo.library.dateIntToStr
 import com.example.todotodo.library.dateStrToDate
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,10 +44,12 @@ class AddDialog : DialogFragment() {
         binding.dateText.text = today
 
         binding.calendar.setOnDateChangeListener { _, year, month, day ->
+            Log.d(TAG, "Calendar date changed : $year ${month + 1} $day")
+
             val date = dateIntToStr(year, month + 1, day)
 
             if (date < today) {
-                showToast(mContext, "이전 날짜는 선택하실 수 없습니다!")
+                showToast(mContext, resources.getString(R.string.previous_items))
                 binding.calendar.date = currentDate.time
                 return@setOnDateChangeListener
             }
@@ -58,7 +61,7 @@ class AddDialog : DialogFragment() {
         binding.addBtn.setOnSingleClickListener {
             val contents = binding.editText.text.toString()
             if (contents == "") {
-                showToast(mContext, "할일의 내용을 입력해주세요.")
+                showToast(mContext, resources.getString(R.string.contents_empty))
                 return@setOnSingleClickListener
             }
 

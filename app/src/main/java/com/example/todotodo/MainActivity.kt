@@ -2,6 +2,7 @@ package com.example.todotodo
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
@@ -42,7 +43,8 @@ class MainActivity : BaseActivity(), CustomDialogInterface {
         super.composeToolbar()
 
         binding.addBtn.setOnSingleClickListener {
-            AddDialog().show(supportFragmentManager, "dialog")
+            Log.d(TAG, "AddDialog show")
+            AddDialog().show(supportFragmentManager, DIALOG_TAG)
         }
 
         binding.recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
@@ -56,6 +58,8 @@ class MainActivity : BaseActivity(), CustomDialogInterface {
     }
 
     override fun onAddButtonClicked(date: String, contents: String, posted: String) {
+        Log.d(TAG, "onAddButtonClicked()")
+
         val todo = Todo(date, contents, posted)
         todoViewModel.insert(todo)
     }
@@ -66,6 +70,8 @@ class MainActivity : BaseActivity(), CustomDialogInterface {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d(TAG, "onOptionsItemSelected()")
+
         return when (item.itemId) {
             R.id.notification_item -> {
                 startActivity(Intent(this, NotificationActivity::class.java))
@@ -82,9 +88,11 @@ class MainActivity : BaseActivity(), CustomDialogInterface {
     private fun addOnBackPressedCallback() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
+                Log.d(TAG, "handleOnBackPressed()")
+
                 if (System.currentTimeMillis() - backPressedTime >= 2000) {
                     backPressedTime = System.currentTimeMillis()
-                    showToast(context, "뒤로 버튼을 한번 더 누르면 앱을 종료합니다.")
+                    showToast(context, resources.getString(R.string.back_key))
                 } else if (System.currentTimeMillis() - backPressedTime < 2000) {
                     finish()
                 }
@@ -97,5 +105,7 @@ class MainActivity : BaseActivity(), CustomDialogInterface {
     companion object {
         private val TAG = MainActivity::class.simpleName
         private var backPressedTime: Long = 0
+
+        private const val DIALOG_TAG = "dialog"
     }
 }
