@@ -25,7 +25,7 @@ class BootReceiver : BroadcastReceiver() {
         val m = pref.getData(MINUTE_KEY, DEFAULT_KEY)
 
         if (h == DEFAULT_KEY || m == DEFAULT_KEY) return
-        NotificationManager(context).startNotification(h.toInt(), m.toInt())
+        AlarmController(context).startNotification(h.toInt(), m.toInt())
     }
 
     companion object {

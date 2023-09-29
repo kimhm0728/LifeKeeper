@@ -13,7 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.todotodo.databinding.ActivityNotificationBinding
 import com.example.todotodo.library.setOnSingleClickListener
-import com.example.todotodo.notification.NotificationManager
+import com.example.todotodo.notification.AlarmController
 import com.example.todotodo.preference.PreferenceUtil
 import com.example.todotodo.preference.TodoApplication
 
@@ -21,7 +21,7 @@ class NotificationActivity : BaseActivity() {
 
     private lateinit var binding: ActivityNotificationBinding
     private lateinit var pref: PreferenceUtil
-    private lateinit var notificationManager: NotificationManager
+    private lateinit var alarmController: AlarmController
 
     private var switch: Boolean = false
     private var hour: Int = 12
@@ -31,12 +31,18 @@ class NotificationActivity : BaseActivity() {
     private val timePicker by lazy { binding.timePicker }
     private val applyBtn by lazy { binding.applyBtn }
 
-    private val notiPermLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
+    private val notiPermLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        if (isGranted) {
+            Log.d(TAG, "notification permission is granted")
+        } else {
+            Log.d(TAG, "notification permission is denied")
+        }
+    }
 
     override fun onInit() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_notification)
         pref = TodoApplication.prefs
-        notificationManager = NotificationManager(this)
+        alarmController = AlarmController(this)
     }
 
     override fun composeUI() {
@@ -44,22 +50,7 @@ class NotificationActivity : BaseActivity() {
         setMenuTitle(R.string.notification)
         setHomeButton()
 
-        if (Build.VERSION.SDK_INT >= 33 &&
-                ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                == PackageManager.PERMISSION_DENIED) {
-            Log.e(TAG, "permission denied")
-            binding.notiLayout.visibility = View.GONE
-            binding.permLayout.visibility = View.VISIBLE
-            notiPermLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-
-            binding.permBtn.setOnSingleClickListener {
-                Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName")).run {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(this)
-                }
-            }
-            return
-        }
+        checkPermission()
 
         switchCompat.isChecked = run {
             val c = pref.getData(SWITCH_KEY, DEFAULT_KEY)
@@ -105,12 +96,34 @@ class NotificationActivity : BaseActivity() {
             pref.setData(MINUTE_KEY, minute.toString())
 
             if (switchCompat.isChecked) {
-                notificationManager.startNotification(hour, minute)
+                alarmController.startNotification(hour, minute)
             } else {
-                notificationManager.stopNotification()
+                alarmController.stopNotification()
             }
 
             finish()
+        }
+    }
+
+    private fun checkPermission() {
+        if (Build.VERSION.SDK_INT < 33 ||
+                ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                == PackageManager.PERMISSION_GRANTED) {
+            return
+        }
+
+        binding.notiLayout.visibility = View.GONE
+        binding.permLayout.visibility = View.VISIBLE
+        notiPermLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+
+        binding.permBtn.setOnSingleClickListener {
+            Intent(
+                Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                Uri.parse("package:$packageName")
+            ).run {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(this)
+            }
         }
     }
 

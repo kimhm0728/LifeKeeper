@@ -12,13 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.todotodo.database.Todo
 import com.example.todotodo.database.TodoDatabase
-import com.example.todotodo.mvvm.TodoViewModel
 import com.example.todotodo.databinding.ActivityMainBinding
-import com.example.todotodo.library.showToast
+import com.example.todotodo.dialog.AddDialog
 import com.example.todotodo.dialog.CustomDialogInterface
 import com.example.todotodo.library.setOnSingleClickListener
+import com.example.todotodo.library.showToast
+import com.example.todotodo.mvvm.TodoViewModel
 import com.example.todotodo.recyclerview.TodoRecyclerViewAdapter
-import com.example.todotodo.dialog.AddDialog
+
 
 class MainActivity : BaseActivity(), CustomDialogInterface {
 
